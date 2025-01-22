@@ -1,5 +1,21 @@
 # This code provided will take text that in inputted and summarize it
 
+# things to add
+# 1. prevent empty input:
+    # for both file paths and text inputs, check if the user accidentally 
+    # presses Enter without typing anything. add a condition to ensure 
+    # the input isn’t empty.
+# 2. Categorization for the Future:
+    # Once the summarizer is working, explore automatically categorizing the 
+    # text into topics (e.g., "science," "finance"). This could be the next 
+    # logical extension to the project.
+# 3. Modularity:
+    # Try breaking the code into smaller functions. 
+    # For example:
+        # A function for summarizing text.
+        # A function for handling file input.
+        # A main function to run the program.
+
 import os
 from transformers import pipeline, logging
 import warnings
