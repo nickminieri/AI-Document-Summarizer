@@ -21,19 +21,30 @@ while True:
     # Check if the input is valid
     if choice == "file":
         # Handle file input
-        file_path = input("Enter the path to your file: ").strip()
+        print("Accepted file types: .txt")
+        file_path = input("Enter the full path of the file (e.g., /Users/YourName/Desktop/yourfile.txt): ").strip()
         
+        # Remove quotes if included accidentally
+        if file_path.startswith("'") and file_path.endswith("'"):
+            file_path = file_path[1:-1]
+        elif file_path.startswith('"') and file_path.endswith('"'):
+            file_path = file_path[1:-1]
+
         # Check if the file exists
-        if os.path.exists(file_path):
-            # Read the file content
-            with open(file_path, 'r') as file:
-                content = file.read()
-            print("File content loaded successfully!")
-            
+        if os.path.isfile(file_path):
+            try:
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+                    print("File content loaded successfully!")
+
             # Summarize the file content
-            summary = summarizer(content, max_length=50, min_length=25, do_sample=False)
-            print("Summary:", summary[0]['summary_text'])
-            break  # Exit the loop once done
+                summary = summarizer(content, max_length=50, min_length=25, do_sample=False)
+                print("Summary:", summary[0]['summary_text'])
+                break  # Exit the loop once done
+        
+            except Exception as e:
+                print(f"An error occurred while reading the file: {e}")
+            
         else:
             # If the file doesn't exist, inform the user
             print("File not found. Please check the path.")
